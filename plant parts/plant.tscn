@@ -1,0 +1,12 @@
+[gd_scene load_steps=3 format=3 uid="uid://bhccfuo0faopt"]
+
+[ext_resource type="PackedScene" uid="uid://bmlfgmirol47j" path="res://plant parts/seed.tscn" id="1_05lt8"]
+[ext_resource type="Script" path="res://plant parts/plant.gd" id="1_ao8f0"]
+
+[node name="Plant" type="Node2D"]
+script = ExtResource("1_ao8f0")
+metadata/_edit_group_ = true
+
+[node name="Seed" parent="." instance=ExtResource("1_05lt8")]
+
+[connection signal="germinated" from="Seed" to="." method="_on_seed_germinated"]

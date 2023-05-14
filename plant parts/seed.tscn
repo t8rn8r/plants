@@ -1,0 +1,34 @@
+[gd_scene load_steps=5 format=3 uid="uid://bmlfgmirol47j"]
+
+[ext_resource type="Texture2D" uid="uid://ce8jhko4gvx63" path="res://sprites/seed.png" id="1_2j5qw"]
+[ext_resource type="Script" path="res://plant parts/seed.gd" id="1_oru83"]
+
+[sub_resource type="PhysicsMaterial" id="PhysicsMaterial_lcjmf"]
+friction = 0.5
+bounce = 0.5
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_b6bb5"]
+size = Vector2(1, 1)
+
+[node name="Seed" type="RigidBody2D"]
+mass = 0.01
+physics_material_override = SubResource("PhysicsMaterial_lcjmf")
+max_contacts_reported = 1
+contact_monitor = true
+lock_rotation = true
+script = ExtResource("1_oru83")
+metadata/_edit_group_ = true
+
+[node name="Sprite" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("1_2j5qw")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_b6bb5")
+
+[node name="Germination Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_exited" from="." to="." method="_on_body_exited"]
+[connection signal="timeout" from="Germination Timer" to="." method="_on_timer_timeout"]

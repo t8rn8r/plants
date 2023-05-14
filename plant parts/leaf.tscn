@@ -1,0 +1,63 @@
+[gd_scene load_steps=7 format=3 uid="uid://b27eknbiw15xr"]
+
+[ext_resource type="Script" path="res://plant parts/leaf.gd" id="1_gymqp"]
+[ext_resource type="Texture2D" uid="uid://c1gfmta1q7cj" path="res://sprites/leaf.png" id="2_v0l06"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hppo5"]
+size = Vector2(1, 1)
+
+[sub_resource type="Animation" id="Animation_0vnly"]
+resource_name = "photosynthesis"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.1, 1),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [0.0, 0.261799, 0.0]
+}
+
+[sub_resource type="Animation" id="Animation_k7opf"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_8imxd"]
+_data = {
+"RESET": SubResource("Animation_k7opf"),
+"photosynthesis": SubResource("Animation_0vnly")
+}
+
+[node name="Leaf" type="StaticBody2D"]
+script = ExtResource("1_gymqp")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hppo5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("2_v0l06")
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+libraries = {
+"": SubResource("AnimationLibrary_8imxd")
+}
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

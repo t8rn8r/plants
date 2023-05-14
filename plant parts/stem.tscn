@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ddwv2yab3cu4j"]
+
+[ext_resource type="Script" path="res://plant parts/stem.gd" id="1_bfulv"]
+[ext_resource type="Texture2D" uid="uid://c74o3ahj0r1s" path="res://sprites/stem.png" id="1_cijcj"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_hppo5"]
+size = Vector2(1, 1)
+
+[node name="Stem" type="StaticBody2D"]
+script = ExtResource("1_bfulv")
+metadata/_edit_group_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("RectangleShape2D_hppo5")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture = ExtResource("1_cijcj")
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.1
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
